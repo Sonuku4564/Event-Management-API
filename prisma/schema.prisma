@@ -26,6 +26,7 @@ model Event{
   id  Int  @id @default(autoincrement())
   title     String   @db.VarChar(255)
   dateTime DateTime
+  location  String
   capacity  Int  @default(1000) 
   registration  Registration[]
 }
