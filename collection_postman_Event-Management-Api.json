@@ -1,0 +1,181 @@
+{
+    "info": {
+        "_postman_id": "338190eb-b3de-4389-b06a-3f63ae61c1bf",
+        "name": "Event-Management-Api",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Create Event",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:3000/api/events/create",
+                    "path": [
+                        "api",
+                        "events",
+                        "create"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\r\n  \"title\": \"Hackathon Event\",\r\n  \"dateTime\": \"2025-07-18T10:00:00Z\",\r\n  \"location\": \"Thane\",\r\n  \"capacity\": 200\r\n}\r\n"
+                }
+            }
+        },
+        {
+            "name": "Create New User",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:3000/api/user/create",
+                    "path": [
+                        "api",
+                        "user",
+                        "create"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\r\n  \"name\": \"Sam\",\r\n  \"email\": \"sam@email.com\"\r\n}\r\n"
+                }
+            }
+        },
+        {
+            "name": "Get Event Details",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:3000/api/events/details/4",
+                    "path": [
+                        "api",
+                        "events",
+                        "details",
+                        "4"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                }
+            }
+        },
+        {
+            "name": "Register to Event",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:3000/api/events/register",
+                    "path": [
+                        "api",
+                        "events",
+                        "register"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"userId\":2,\n  \"eventId\":2\n}"
+                }
+            }
+        },
+        {
+            "name": "Cancel Registration",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:3000/api/events/cancel",
+                    "path": [
+                        "api",
+                        "events",
+                        "cancel"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"userId\":2,\n  \"eventId\":4\n}"
+                }
+            }
+        },
+        {
+            "name": "Upcoming Events",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:3000/api/events/upcoming",
+                    "path": [
+                        "api",
+                        "events",
+                        "upcoming"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                }
+            }
+        },
+        {
+            "name": "Events Stats",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:3000/api/events/stats/2",
+                    "path": [
+                        "api",
+                        "events",
+                        "stats",
+                        "2"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3000"
+                }
+            }
+        }
+    ]
+}
