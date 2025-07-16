@@ -14,7 +14,7 @@ router.get("/details/:id", getEventDetails)
 router.post("/register",registerForEvent)
 router.delete("/cancel",cancelRegistration)
 router.get("/upcoming",upcomingEvents)
-router.get("/stats",eventStats)
+router.get("/stats/:id",eventStats)
 
 
 

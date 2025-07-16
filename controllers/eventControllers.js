@@ -161,11 +161,68 @@ export const cancelRegistration = async(req,res)=>{
 }
 
 
-export const upcomingEvents = (req,res)=>{
+export const upcomingEvents = async(req,res)=>{
+    try {
 
+      // fetching list of all future events from db 
+      const upcomingEvent = await prisma.event.findMany({
+        where:{
+            dateTime:{
+                gt: new Date(),
+            },
+        },
+        orderBy:[
+            // sorting events in ascending order as per date
+            { dateTime: 'asc' },  
+            // sorting events in ascending order as per location
+            { location: 'asc' },
+        ],
+      })
+
+       // sending response to the user
+      return res.status(200).json(upcomingEvent);
+    } catch (error) {
+      console.log("Error in upcomingEvents Controller", error.message);
+      res.status(500).json({ message: " Internal Server Error", });   
+    }
 }
 
 
-export const eventStats = (req,res)=>{
-    
+export const eventStats = async(req,res)=>{
+    try {
+        // parse the eventId as integer
+       const eventId = parseInt(req.params.id);
+
+        // fetching the events from db with registrations
+       const fetchEvents = await prisma.event.findUnique({
+            where: { id: eventId },
+            include: {
+                registration: true,
+            },
+        });
+
+        // checking if the event exist in db
+        if(!fetchEvents){
+            res.status(400).json({ message: "Event does not exist", });   
+        }
+
+        // calculating stats like totalRegistrations , remainingCapacity,  percentageCapacity
+        const totalRegistrations = fetchEvents.registration.length
+        const remainingCapacity = fetchEvents.capacity - totalRegistrations
+        const percentageCapacity =  ((totalRegistrations / fetchEvents.capacity) * 100).toFixed(1);
+
+        // sending response to the user
+        return res.status(200).json({
+            eventId: fetchEvents.id,
+            title: fetchEvents.title,
+            totalRegistrations,
+            remainingCapacity,
+            percentageCapacity: `${percentageCapacity}%`,
+    });
+
+
+    } catch (error) {
+      console.log("Error in eventStats Controller", error.message);
+      res.status(500).json({ message: " Internal Server Error", });   
+    }
 }
