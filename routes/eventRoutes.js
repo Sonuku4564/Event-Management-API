@@ -12,7 +12,7 @@ const router = express.Router()
 router.post("/create", createNewEvent)
 router.get("/details/:id", getEventDetails)
 router.post("/register",registerForEvent)
-router.delete("/cancel/:id",cancelRegistration)
+router.delete("/cancel",cancelRegistration)
 router.get("/upcoming",upcomingEvents)
 router.get("/stats",eventStats)
 

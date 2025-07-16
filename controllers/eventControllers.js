@@ -129,13 +129,40 @@ export const registerForEvent = async(req,res)=>{
 }
 
 
-export const cancelRegistration = (req,res)=>{
+export const cancelRegistration = async(req,res)=>{
+    try {
+        const {userId, eventId} = req.body;
+        
+        // Checking if the user is registered for the event
+        const registerUser = await prisma.registration.findUnique({
+        where: {
+            userId_eventId: { userId, eventId },
+        }
+        });
+
+        if (!registerUser) {
+        return res.status(400).json({ message: "User already registered" });
+        }
+
+        // deleting the user registration from db
+        await prisma.registration.delete({
+            where: {
+                userId_eventId: { userId, eventId },
+            },
+        });
     
+        // sending response to the user
+        return res.status(200).json({ message: "Registration Cancelled Successfully" });
+
+    } catch (error) {
+        console.log("Error in cancelRegistration Controller", error.message);
+        res.status(500).json({ message: " Internal Server Error", }); 
+    }
 }
 
 
 export const upcomingEvents = (req,res)=>{
-    
+
 }
 
 
