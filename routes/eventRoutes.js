@@ -5,7 +5,7 @@ import { createNewEvent,
         cancelRegistration,
         upcomingEvents,
         eventStats
- } from "../controllers/eventControllers";
+ } from "../controllers/eventControllers.js";
 
 const router = express.Router()
 
