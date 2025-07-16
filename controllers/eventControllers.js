@@ -38,8 +38,39 @@ export const createNewEvent = async(req,res)=>{
 }
 
 
-export const getEventDetails = (req,res)=>{
+export const getEventDetails = async(req,res)=>{
+try {
+    // parsing the id parameter to integer  
+    const eventId = parseInt(req.params.id)
 
+    // finding the events details from db
+    const event = await prisma.event.findUnique({
+      where: { id: eventId },
+      include: {
+        registration: {
+          include: {
+            user: true, // Includes Registered user details
+          },
+        },
+      },
+    });
+
+    if(!event){
+        return res.status(400).json({message: "Event does not exist"});  
+    }
+
+    // Mapping the user objects from event registrations
+    const registerUsers = event.registration.map(r => r.user)
+
+    // sendign response to the users
+    res.status(200).json({
+        ...event,
+        registerUsers
+    })
+} catch (error) {
+    console.log("Error in getEventDetails Controller", error.message);
+    res.status(500).json({ message: " Internal Server Error", }); 
+}
 }
 
 
